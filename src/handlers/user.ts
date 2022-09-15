@@ -23,3 +23,23 @@ export const queryUserById = async (req: Request, res: Response) => {
   });
   res.end();
 };
+
+export const queryUserByUsername = async (req: Request, res: Response) => {
+  const username = req.params.username;
+
+  const user = await userRepo.findOne({
+    where: {
+      username,
+    },
+  });
+
+  if (user) {
+    user.salt = '';
+    user.hash = '';
+  }
+  res.json({
+    status: true,
+    user: user,
+  });
+  res.end();
+};

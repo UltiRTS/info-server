@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import {AppDataSource} from './db/datasource';
 import * as express from 'express';
-import {queryUserById} from './handlers/user';
+import {queryUserById, queryUserByUsername} from './handlers/user';
 
 AppDataSource.initialize()
   .then(() => {
@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/user/:id', queryUserById);
+app.get('/user/byname/:username', queryUserByUsername);
+
 app.listen(port, () => {
   console.log(`listening at ${port}`);
 });
